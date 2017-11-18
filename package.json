@@ -4,7 +4,9 @@
   "description": "fcc voting app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/app.bundle.js",
+    "dev": "NODE_ENV=development nodemon dist/app.bundle.js",
+    "dev:build": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -38,11 +40,16 @@
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
     "dot-env": "0.0.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "helmet": "^3.9.0",
     "mongoose": "^4.13.3",
+    "morgan": "^1.9.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-google-charts": "^1.5.5",
