@@ -70,14 +70,43 @@ module.exports =
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_database__ = __webpack_require__(2);
+
+
+
+const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
+
+app.get('/', (req, res) => {
+  res.send("working...!!");
+});
+
+app.listen(process.env.PORT || 3000, err => {
+  if (err) throw err;
+
+  console.log('listening');
+});
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dot_env__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dot_env___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dot_env__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dotenv__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dotenv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dotenv__);
 
 
 
-__WEBPACK_IMPORTED_MODULE_1_dot_env___default.a.config();
+__WEBPACK_IMPORTED_MODULE_1_dotenv___default.a.config();
 
 // mongodb : //<dbuser>:<dbpassword>@ds229465.mlab.com:29465/ygr_test
 
@@ -93,16 +122,16 @@ db.once('open', function () {
 });
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose");
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("dot-env");
+module.exports = require("dotenv");
 
 /***/ })
 /******/ ]);

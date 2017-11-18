@@ -1,17 +1,21 @@
-import mongoose from 'mongoose';
-import dotenv from 'dot-env';
+import express from 'express';
+import './config/database';
 
-dotenv.config();
+const app = express();
 
-// mongodb : //<dbuser>:<dbpassword>@ds229465.mlab.com:29465/ygr_test
+app.get(
+  '/',
+  (req, res) => {
+    res.send("working...!!");
+  }
+);
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.COLLECTION}`);
+app.listen(
+  process.env.PORT||3000,
+  err => {
+    if(err) throw err;
 
-console.log('in database.js');
+    console.log('listening');
 
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log("// we're connected!");
-});
+  }
+);
