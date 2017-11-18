@@ -3,15 +3,22 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// mongodb : //<dbuser>:<dbpassword>@ds229465.mlab.com:29465/ygr_test
+const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.COLLECTION}`;
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.COLLECTION}`);
 
-console.log('in database.js');
+mongoose.Promise = global.Promise;
 
-const db = mongoose.connection;
+try {
+    mongoose.connect(uri);
+} catch (err) {
+    mongoose.createConnection(uri);
+}
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log("// we're connected!");
-});
+mongoose
+    .connection
+    .once('open', () => {
+        console.log('MongoDB is connected!');
+    })
+    .on('error', (err) => {
+        throw err;
+    });

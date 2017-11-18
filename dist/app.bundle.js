@@ -108,17 +108,20 @@ module.exports = require("express");
 
 __WEBPACK_IMPORTED_MODULE_1_dotenv___default.a.config();
 
-// mongodb : //<dbuser>:<dbpassword>@ds229465.mlab.com:29465/ygr_test
+const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.COLLECTION}`;
 
-__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.COLLECTION}`);
+__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.Promise = global.Promise;
 
-console.log('in database.js');
+try {
+    __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.connect(uri);
+} catch (err) {
+    __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.createConnection(uri);
+}
 
-const db = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log("// we're connected!");
+__WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.connection.once('open', () => {
+    console.log('MongoDB is connected!');
+}).on('error', err => {
+    throw err;
 });
 
 /***/ }),
