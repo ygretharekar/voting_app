@@ -152,10 +152,13 @@ module.exports = require("dotenv");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_compression___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_compression__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_helmet__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_helmet___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_helmet__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_fs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_path__);
+
+
 
 
 
@@ -175,12 +178,23 @@ const dist = process.env.NODE_ENV === 'production';
     }
 
     if (dist) {
-        app.use(__WEBPACK_IMPORTED_MODULE_2_compression___default.a);
+        app.use(__WEBPACK_IMPORTED_MODULE_2_compression___default()());
         app.use(__WEBPACK_IMPORTED_MODULE_3_helmet___default()());
     }
 
     app.use(__WEBPACK_IMPORTED_MODULE_0_body_parser___default.a.json());
     app.use(__WEBPACK_IMPORTED_MODULE_0_body_parser___default.a.urlencoded({ extended: true }));
+
+    app.use((err, reg, res, next) => {
+        res.status(err.status || 500).json({
+            error: {
+                message: err.message
+            }
+        });
+        next(err);
+    });
+
+    app.use('/', __WEBPACK_IMPORTED_MODULE_4__routes__["a" /* default */]);
 });
 
 /***/ }),
@@ -209,12 +223,32 @@ module.exports = require("helmet");
 
 /***/ }),
 /* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+
+
+const router = __WEBPACK_IMPORTED_MODULE_0_express___default.a.Router();
+
+router.get('/', (req, res) => {
+    res.json({
+        response: 'response from home',
+        body: req.body
+    });
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");

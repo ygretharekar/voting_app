@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
 
+import routes from '../routes';
+
 import fs from 'fs';
 import path from 'path';
 
@@ -18,12 +20,24 @@ export default app => {
 
 
     if(dist){
-        app.use(compression);
+        app.use(compression());
         app.use(helmet());
     }
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     
+    app.use((err, reg, res, next) => {
+        res
+            .status(err.status || 500)
+            .json({
+                error: {
+                message: err.message
+            }
+            });
+        next(err);
+    });
+
+    app.use('/', routes);
     
-}
+};
