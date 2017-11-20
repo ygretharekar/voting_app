@@ -52,6 +52,7 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
+    "passport-twitter": "^1.0.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-google-charts": "^1.5.5",

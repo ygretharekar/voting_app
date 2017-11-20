@@ -1,7 +1,7 @@
 
 export default {
-    githubAuth: {
-        clientID: process.env.clientID,
-        clientSecret: process.env.clientSecret
+    twitterAuth: {
+        cKey: process.env.cKey,
+        cSecret: process.env.cSecret
     }
 };
