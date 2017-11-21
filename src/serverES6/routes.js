@@ -6,16 +6,12 @@ router.get(
 	"/*",
 	(req, res) => {
 
-		const data = {
+		const options = {
 			root : `${__dirname}/../../dist/`,
+			dotfiles: "deny"
 		};
 
-		res.json(
-			{
-				response : "response from home",
-				body : req.body
-			}
-		);
+		res.sendFile("index.html", options);
 	}
 );
 
