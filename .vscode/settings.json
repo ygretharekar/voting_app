@@ -1,5 +1,0 @@
-{
-    "eslint.options": {},
-    "eslint.alwaysShowStatus": true,
-    "eslint.trace.server": "messages"
-}
