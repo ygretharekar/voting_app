@@ -1,12 +1,12 @@
-import { component } from "react";
+import { Component } from "react";
 
-export default class Header extends component {
+export default class Header extends Component {
 
 	render(){
 		return(
 			<div>
-				< nav className = "navbar navbar-light bg-light" > 
-					<span class="navbar-brand mb-0 h1">Navbar</span> 
+				<nav className = "navbar navbar-light bg-light"> 
+					<span className="navbar-brand mb-0 h1">Navbar</span> 
 				</nav>
 			</div>
 		);

@@ -2,15 +2,14 @@ const nodeExternals = require("webpack-node-externals");
 const path = require("path");
 
 module.exports = {
-	target: "node",
-	externals: [nodeExternals()],
+	//target: "node",
+	//externals: [nodeExternals()],
 	entry: {
 		app: "./src/index.js",
 	},
 	output: {
 		path: path.join(__dirname, "dist"),
-		filename: "[name].bundle.js",
-		libraryTarget: "commonjs2",
+		filename: "bundle.js"
 	},
 	module: {
 		rules: [
@@ -21,4 +20,10 @@ module.exports = {
 			},
 		],
 	},
+	devServer : {
+		inline: true,
+		contentBase: "./dist",
+		port: 8100,
+		historyApiFallback: true
+	}
 };
