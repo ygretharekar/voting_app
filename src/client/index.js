@@ -1,15 +1,18 @@
-import  react  from "react";
+import  React  from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Header from "./components/header";
+import Sidenav from "./components/sidenav";
+import Footer from "./components/footer";
 
-
-class App extends react.Component {
+class App extends React.Component {
 	render() {
 		return (
 			<Router>
 				<div>
-					<h2>Hello</h2>
-					<Header></Header>
+					<Header />
+					<Sidenav />
+					<Footer />
 				</div>
 			</Router>
 		);

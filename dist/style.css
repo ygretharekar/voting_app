@@ -1,0 +1,41 @@
+body {
+    background-image: url("/assets/arnaud-jaegers-253359.jpg");
+    background-size: 100%;
+}
+
+.navbar {
+    background: linear-gradient(to right, rgb(28, 207, 198), rgb(148, 83, 223));
+}
+
+.navbar .btn {
+    background: rgb(28, 207, 198);
+}
+
+#user {
+    margin: 0.5em 0 0 67em;
+}
+
+#username {
+    margin-right: 0.5em;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: aqua;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
