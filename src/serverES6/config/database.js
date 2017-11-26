@@ -14,11 +14,15 @@ try {
     mongoose.createConnection(uri);
 }
 
-mongoose
-    .connection
+const db = mongoose.connection;
+
+db
     .once('open', () => {
         console.log('MongoDB is connected!');
     })
     .on('error', (err) => {
         throw err;
     });
+
+//
+export default db;

@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
@@ -22,11 +26,17 @@ try {
     _mongoose2.default.createConnection(uri);
 }
 
-_mongoose2.default.connection.once('open', () => {
+const db = _mongoose2.default.connection;
+
+db.once('open', () => {
     console.log('MongoDB is connected!');
 }).on('error', err => {
     throw err;
 });
+
+//
+const _default = db;
+exports.default = _default;
 ;
 
 var _temp = function () {
@@ -35,6 +45,10 @@ var _temp = function () {
     }
 
     __REACT_HOT_LOADER__.register(uri, 'uri', 'src/serverES6/config/database.js');
+
+    __REACT_HOT_LOADER__.register(db, 'db', 'src/serverES6/config/database.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'src/serverES6/config/database.js');
 }();
 
 ;

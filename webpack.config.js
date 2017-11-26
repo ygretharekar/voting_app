@@ -1,5 +1,6 @@
 const nodeExternals = require("webpack-node-externals");
 const path = require("path");
+const React = require("react");
 
 module.exports = {
 	//target: "node",
@@ -16,7 +17,7 @@ module.exports = {
 			{
 				test: /.js$/,
 				exclude: /node_modules/,
-				use: "babel-loader",
+				loader: ['react-hot-loader/webpack', 'babel-loader'],
 			},
 		],
 	},

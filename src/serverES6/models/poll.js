@@ -4,7 +4,7 @@ const schema = mongoose.schema;
 
 const answerSchema = new schema(
 	{
-		answer : {
+		a : {
 			type: string,
 			unique: true
 		},
@@ -15,13 +15,13 @@ const answerSchema = new schema(
 	}
 );
 
-const pollSchema = new Schema(
+const pollSchema = new schema(
 	{
-		question:{
+		q:{
 			type: string,
 			unique: true
 		},
-		answer: [answerSchema]
+		a: [answerSchema]
 	}
 );
 

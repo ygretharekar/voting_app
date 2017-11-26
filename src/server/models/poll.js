@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const schema = _mongoose2.default.schema;
 
 const answerSchema = new schema({
-	answer: {
+	a: {
 		type: string,
 		unique: true
 	},
@@ -23,12 +23,12 @@ const answerSchema = new schema({
 	}
 });
 
-const pollSchema = new Schema({
-	question: {
+const pollSchema = new schema({
+	q: {
 		type: string,
 		unique: true
 	},
-	answer: [answerSchema]
+	a: [answerSchema]
 });
 
 answerSchema.method("vote", function (vote, cb) {
