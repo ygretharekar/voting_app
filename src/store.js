@@ -5,7 +5,7 @@ import poll from "./reducers/poll";
 import user from "./reducers/user";
 
 const initialState = {
-	polls:[],
+	poll:[],
 	user:{
 		current:{},
 		loggedIn:false

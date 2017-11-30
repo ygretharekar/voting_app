@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.schema;
+const schema = mongoose.Schema;
 
 const answerSchema = new schema(
 	{
 		a : {
-			type: string,
+			type: String,
 			unique: true
 		},
 		votes : {
-			type: number,
+			type: Number,
 			default: 0
 		}
 	}
@@ -18,7 +18,7 @@ const answerSchema = new schema(
 const pollSchema = new schema(
 	{
 		q:{
-			type: string,
+			type: String,
 			unique: true
 		},
 		a: [answerSchema]

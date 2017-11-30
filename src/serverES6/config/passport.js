@@ -3,8 +3,7 @@ import Auth from "./auth";
 import User from "../models/user";
 
 
-export default passport => {
-
+export default function (passport) {
 	passport.serializeUser(
 		(user, cb) => {
 			console.log(`serialize user ${user}`);
@@ -17,7 +16,9 @@ export default passport => {
 			console.log(`deserialize user ${id}`);
 			User.findById(
 				id,
-				(err, user) => done(err, user)
+				(err, user) => {
+					cb(err, user);
+				}
 			);
 		}
 	);
@@ -28,12 +29,15 @@ export default passport => {
 			{
 				consumerKey: Auth.twitterAuth.cKey,
 				consumerSecret: Auth.twitterAuth.cSecret,
-				callbackURL : "http://127.0.0.1:3000/auth/twitter/callback",
+				callbackURL : "http://127.0.0.1:3000/api/auth/twitter/callback",
 				passReqToCallback: true
 			},
 			(req, token, tokenSecret, profile, cb) => {
 				process.nextTick(
 					() => {
+
+						console.log("twitter authentication");
+
 						if(!req.user){
 							User.findOne(
 								{
@@ -78,4 +82,4 @@ export default passport => {
 			}
 		)
 	);
-};
+}

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -9,20 +9,21 @@ const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env
 mongoose.Promise = global.Promise;
 
 try {
-    mongoose.connect(uri);
+	mongoose.connect(uri);
 } catch (err) {
-    mongoose.createConnection(uri);
+	mongoose.createConnection(uri);
 }
 
 const db = mongoose.connection;
 
 db
-    .once('open', () => {
-        console.log('MongoDB is connected!');
-    })
-    .on('error', (err) => {
-        throw err;
-    });
+	.once("open", () => {
+		console.log("MongoDB is connected!");
+	})
+	.on("error", (err) => {
+		console.error(`Error while connecting to ${err.message}`);
+		throw err;
+	});
 
 //
 export default db;

@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.schema;
+const schema = mongoose.Schema;
 
 const userSchema = new schema(
 	{
 		twitter: {
-			id: string,
-			token: string,
-			displayName: string,
-			username: string
+			id: String,
+			token: String,
+			displayName: String,
+			username: String
 		}
 	}
 );

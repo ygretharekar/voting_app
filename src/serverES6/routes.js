@@ -1,20 +1,12 @@
 import express from "express";
 import passport from "passport";
 
+import passportConfig from "./config/passport";
+
+passportConfig(passport);
 
 const router = express.Router();
 
-router.get(
-	"/*",
-	(req, res) => {
-
-		const options = {
-			root : `${__dirname}/../../dist/`
-		};
-		//console.log(`dirname: ${__dirname}/../../dist/`);
-		res.sendFile("index.html", options);
-	}
-);
 
 const loggedIn = (req, res, next) => {
 	if(req.user){
@@ -41,9 +33,18 @@ router.param(
 //
 
 router.get(
-	"failed",
+	"/api/profile",
+	(request, Response) => Response.json(
+		{
+			user: request.user
+		}
+	)
+);
+
+router.get(
+	"/failed",
 	(request, Response) => Response.json({
-		"filure": "failure"
+		"filure": "failed"
 	})
 );
 
@@ -54,13 +55,23 @@ router.get(
 
 router.get(
 	"/api/auth/twitter/callback",
-	passport.authenticate(
-		"twitter",
-		{
-			successRedirect: "/",
-			failureRedirect: "/failed" 
-		}
-	)
+	passport.authenticate("twitter", { failureRedirect: "/failed" }),
+	function(req, res) {
+		// Successful authentication, redirect home.
+		res.redirect("/polls");
+	}
+);
+
+router.get(
+	"/*",
+	(req, res) => {
+
+		const options = {
+			root : `${__dirname}/../../dist/`
+		};
+		//console.log(`dirname: ${__dirname}/../../dist/`);
+		res.sendFile("index.html", options);
+	}
 );
 
 export default router;
