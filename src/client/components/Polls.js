@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 
 import { updateVotes, addPoll, fetchPolls, postPoll } from "../../reducers/poll";
 import { fetchUser } from "../../reducers/user";
- 
+import AddPoll from "./addPoll";
+
 class Polls extends React.Component {
 
 	constructor(props){
@@ -17,10 +18,13 @@ class Polls extends React.Component {
 		const { poll, user } = this.props;
 
 		return(
-			<div>
-				<h1>
-					Hello World!
-				</h1>
+			<div className="d-flex flex-column justify-content-center" id="polls">
+				<div className="d-flex flex-row justify-content-center">
+					<button className="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">
+						Add Poll
+					</button>
+					<AddPoll postPoll = {postPoll} poll = {poll} />
+				</div>
 			</div>
 		);
 	}

@@ -3978,7 +3978,10 @@ const getPolls = polls => ({
 
 const fetchPolls = exports.fetchPolls = () => dispatch => _axios2.default.get("/api/polls").then(res => dispatch(getPolls(res.data))).catch(err => console.warn(err));
 
-const postPoll = exports.postPoll = (q, a) => dispatch => _axios2.default.post("/api/polls/new", addPoll(q, a)).then(dispatch(addPoll(q, a))).catch(err => console.warn(err));
+const postPoll = exports.postPoll = (q, a) => dispatch => {
+	console.log("posting polls");
+	return _axios2.default.post("/api/polls/new", addPoll(q, a)).then(dispatch(addPoll(q, a))).catch(err => console.warn(err));
+};
 
 const postAns = exports.postAns = (url, ind, ans) => dispatch => _axios2.default.post(`/api/polls/${url}/new`, { a: ans[0].ans, votes: 1 }).then(dispatch(editPolls(ind, ans))).catch(err => console.warn(err));
 
@@ -4382,7 +4385,7 @@ var _index = __webpack_require__(97);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _store = __webpack_require__(146);
+var _store = __webpack_require__(148);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -23489,15 +23492,15 @@ var _Polls = __webpack_require__(123);
 
 var _Polls2 = _interopRequireDefault(_Polls);
 
-var _header = __webpack_require__(142);
+var _header = __webpack_require__(144);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _sidenav = __webpack_require__(143);
+var _sidenav = __webpack_require__(145);
 
 var _sidenav2 = _interopRequireDefault(_sidenav);
 
-var _footer = __webpack_require__(145);
+var _footer = __webpack_require__(147);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -26566,6 +26569,10 @@ var _poll = __webpack_require__(52);
 
 var _user = __webpack_require__(26);
 
+var _addPoll = __webpack_require__(142);
+
+var _addPoll2 = _interopRequireDefault(_addPoll);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class Polls extends _react2.default.Component {
@@ -26581,11 +26588,16 @@ class Polls extends _react2.default.Component {
 
 		return _react2.default.createElement(
 			"div",
-			null,
+			{ className: "d-flex flex-column justify-content-center", id: "polls" },
 			_react2.default.createElement(
-				"h1",
-				null,
-				"Hello World!"
+				"div",
+				{ className: "d-flex flex-row justify-content-center" },
+				_react2.default.createElement(
+					"button",
+					{ className: "btn btn-primary", type: "button", "data-toggle": "modal", "data-target": "#exampleModal" },
+					"Add Poll"
+				),
+				_react2.default.createElement(_addPoll2.default, { postPoll: _poll.postPoll, poll: poll })
 			)
 		);
 	}
@@ -27536,6 +27548,287 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _newPoll = __webpack_require__(143);
+
+var _newPoll2 = _interopRequireDefault(_newPoll);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AddPoll extends _react2.default.Component {
+	constructor(props) {
+		super(props);
+
+		this.reset = (...params) => this.__reset__REACT_HOT_LOADER__(...params);
+
+		this.addQuestion = (...params) => this.__addQuestion__REACT_HOT_LOADER__(...params);
+
+		this.addAnswer = (...params) => this.__addAnswer__REACT_HOT_LOADER__(...params);
+
+		this.postP = (...params) => this.__postP__REACT_HOT_LOADER__(...params);
+
+		this.state = {
+			q: "",
+			a: []
+		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			q: "",
+			a: []
+		});
+	}
+
+	__reset__REACT_HOT_LOADER__() {
+		this.setState({
+			q: "",
+			a: []
+		});
+	}
+
+	__addQuestion__REACT_HOT_LOADER__(e) {
+		const q = e.target.value;
+		this.setState({
+			q
+		});
+	}
+
+	__addAnswer__REACT_HOT_LOADER__(ans) {
+		this.setState(prevState => ({
+			a: [...prevState.a, ans]
+		}));
+	}
+
+	__postP__REACT_HOT_LOADER__(e) {
+		if (e) e.preventDefault();
+		this.props.postPoll(this.state.q, this.state.a);
+		console.log("reseting....");
+		this.reset();
+	}
+
+	render() {
+		console.log(JSON.stringify(this.state));
+		return _react2.default.createElement(
+			"div",
+			null,
+			_react2.default.createElement(_newPoll2.default, {
+				state: this.state,
+				addQuestion: this.addQuestion.bind(this),
+				addAnswer: this.addAnswer.bind(this),
+				postP: this.postP.bind(this)
+			})
+		);
+	}
+}
+
+const _default = AddPoll;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(AddPoll, "AddPoll", "C:/My Work/Voting_App/src/client/components/addPoll.js");
+
+	__REACT_HOT_LOADER__.register(_default, "default", "C:/My Work/Voting_App/src/client/components/addPoll.js");
+}();
+
+;
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } /* eslint-disable camelcase, no-undef */ var webpackExports = typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__ : module.exports; /* eslint-enable camelcase, no-undef */ if (typeof webpackExports === 'function') { __REACT_HOT_LOADER__.register(webpackExports, 'module.exports', "C:\\My Work\\Voting_App\\src\\client\\components\\addPoll.js"); return; } /* eslint-disable no-restricted-syntax */ for (var key in webpackExports) { /* eslint-enable no-restricted-syntax */ if (!Object.prototype.hasOwnProperty.call(webpackExports, key)) { continue; } var namedExport = void 0; try { namedExport = webpackExports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "C:\\My Work\\Voting_App\\src\\client\\components\\addPoll.js"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const NewPoll = props => {
+	let ans = props.state.a;
+	let answer = "";
+	return _react2.default.createElement(
+		"div",
+		{ className: "modal", id: "exampleModal", tabIndex: "-1", role: "dialog" },
+		_react2.default.createElement(
+			"div",
+			{ className: "modal-dialog", role: "document" },
+			_react2.default.createElement(
+				"div",
+				{ className: "modal-content" },
+				_react2.default.createElement(
+					"div",
+					{ className: "modal-header" },
+					_react2.default.createElement(
+						"h5",
+						{ className: "modal-title" },
+						"New Poll"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+						_react2.default.createElement(
+							"span",
+							{ "aria-hidden": "true" },
+							"\xD7"
+						)
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "modal-body" },
+					_react2.default.createElement(
+						"form",
+						null,
+						_react2.default.createElement(
+							"div",
+							{ className: "form-group" },
+							_react2.default.createElement(
+								"label",
+								{ htmlFor: "question", className: "col-form-label" },
+								"Question:"
+							),
+							_react2.default.createElement("input", { type: "text", className: "form-control", onChange: e => props.addQuestion(e), value: props.state.q, placeholder: "Question" })
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "form-group" },
+							_react2.default.createElement(
+								"label",
+								{ htmlFor: "answer", className: "col-form-label" },
+								"Answer:"
+							),
+							_react2.default.createElement(
+								"ul",
+								{ className: "list-group" },
+								ans.map((a, i) => _react2.default.createElement(
+									"li",
+									{ className: "list-group-item", key: i },
+									a.a
+								))
+							),
+							_react2.default.createElement("input", { type: "text", className: "form-control", id: "a", onChange: e => {
+									answer = e.target.value;
+								}, style: { margin: "7px 0 0 0" }, placeholder: "Type your answer here..." }),
+							_react2.default.createElement(
+								"div",
+								{ className: "d-flex flex-row-reverse" },
+								_react2.default.createElement(
+									"button",
+									{
+										type: "button", className: "btn btn-secondary btn-sm dropdown-toggle",
+										style: { margin: "7px 0 0 3px" }, "data-toggle": "dropdown",
+										"aria-haspopup": "true", "aria-expanded": "false" },
+									"Edit Question"
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "dropdown-menu" },
+									ans.map((a, i) => _react2.default.createElement(
+										"span",
+										{ className: "dropdown-item", key: i },
+										i + 1
+									))
+								),
+								_react2.default.createElement(
+									"button",
+									{
+										type: "button", className: "btn btn-warning btn-sm",
+										onClick: () => {
+											document.getElementById("a").value = "";
+											props.addAnswer({ a: answer, votes: 1 });
+										},
+										style: { margin: "7px 3px 0 0" }
+									},
+									"Submit"
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "modal-footer" },
+					_react2.default.createElement(
+						"button",
+						{ type: "button", onClick: props.postP, className: "btn btn-primary", "data-dismiss": "modal" },
+						"Save changes"
+					),
+					_react2.default.createElement(
+						"button",
+						{ type: "button", className: "btn btn-secondary", "data-dismiss": "modal" },
+						"Close"
+					)
+				)
+			)
+		)
+	);
+};
+
+NewPoll.PropTypes = {
+	state: _propTypes2.default.shape({
+		q: _propTypes2.default.string.isRequired,
+		a: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+			a: _propTypes2.default.string.isRequired,
+			votes: _propTypes2.default.number.isRequired
+		}))
+	}).isRequired,
+	addAnswer: _propTypes2.default.func.isRequired,
+	addQuestion: _propTypes2.default.func.isRequired,
+	postP: _propTypes2.default.func.isRequired
+};
+
+const _default = NewPoll;
+exports.default = _default;
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(NewPoll, "NewPoll", "C:/My Work/Voting_App/src/client/components/newPoll.js");
+
+	__REACT_HOT_LOADER__.register(_default, "default", "C:/My Work/Voting_App/src/client/components/newPoll.js");
+}();
+
+;
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } /* eslint-disable camelcase, no-undef */ var webpackExports = typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__ : module.exports; /* eslint-enable camelcase, no-undef */ if (typeof webpackExports === 'function') { __REACT_HOT_LOADER__.register(webpackExports, 'module.exports', "C:\\My Work\\Voting_App\\src\\client\\components\\newPoll.js"); return; } /* eslint-disable no-restricted-syntax */ for (var key in webpackExports) { /* eslint-enable no-restricted-syntax */ if (!Object.prototype.hasOwnProperty.call(webpackExports, key)) { continue; } var namedExport = void 0; try { namedExport = webpackExports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "C:\\My Work\\Voting_App\\src\\client\\components\\newPoll.js"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactRouterDom = __webpack_require__(44);
 
 var _user = __webpack_require__(26);
@@ -27632,7 +27925,7 @@ var _temp = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27646,7 +27939,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _login = __webpack_require__(144);
+var _login = __webpack_require__(146);
 
 var _login2 = _interopRequireDefault(_login);
 
@@ -27692,7 +27985,7 @@ var _temp = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27738,7 +28031,7 @@ var _temp = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27787,7 +28080,7 @@ var _temp = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27797,7 +28090,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _reduxThunk = __webpack_require__(147);
+var _reduxThunk = __webpack_require__(149);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -27856,7 +28149,7 @@ var _temp = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

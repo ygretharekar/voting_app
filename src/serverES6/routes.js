@@ -42,6 +42,15 @@ router.get(
 );
 
 router.get(
+	"/api/polls/new",
+	(request, Response) =>
+		Response.json({
+			do: "something"
+		})
+);
+
+
+router.get(
 	"/failed",
 	(request, Response) => Response.json({
 		"filure": "failed"
