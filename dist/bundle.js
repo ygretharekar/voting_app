@@ -3979,7 +3979,6 @@ const getPolls = polls => ({
 const fetchPolls = exports.fetchPolls = () => dispatch => _axios2.default.get("/api/polls").then(res => dispatch(getPolls(res.data))).catch(err => console.warn(err));
 
 const postPoll = exports.postPoll = (q, a) => dispatch => {
-	console.log("posting polls");
 	return _axios2.default.post("/api/polls/new", addPoll(q, a)).then(dispatch(addPoll(q, a))).catch(err => console.warn(err));
 };
 
@@ -26553,8 +26552,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -26579,16 +26576,30 @@ class Polls extends _react2.default.Component {
 
 	constructor(props) {
 		super(props);
+		this.props.fetchPolls();
 		this.props.fetchUser();
 	}
 
 	render() {
 
-		const { poll, user } = this.props;
+		const { poll, user, postPoll } = this.props;
 
 		return _react2.default.createElement(
 			"div",
 			{ className: "d-flex flex-column justify-content-center", id: "polls" },
+			poll.map(p => _react2.default.createElement(
+				"div",
+				{ className: "card" },
+				_react2.default.createElement(
+					"div",
+					{ className: "card-block" },
+					_react2.default.createElement(
+						"h2",
+						null,
+						p.q
+					)
+				)
+			)),
 			_react2.default.createElement(
 				"div",
 				{ className: "d-flex flex-row justify-content-center" },
@@ -26597,30 +26608,25 @@ class Polls extends _react2.default.Component {
 					{ className: "btn btn-primary", type: "button", "data-toggle": "modal", "data-target": "#exampleModal" },
 					"Add Poll"
 				),
-				_react2.default.createElement(_addPoll2.default, { postPoll: _poll.postPoll, poll: poll })
+				_react2.default.createElement(_addPoll2.default, { postPoll: postPoll, poll: poll })
 			)
 		);
 	}
 }
 
-const mapStateToProps = state => _extends({}, state);
+const mapStateToProps = state => ({
+	poll: state.poll,
+	user: state.user
+});
 
 Polls.propTypes = {
-	/* polls: PropTypes.arrayOf(
- 	PropTypes.shape(
- 		{
- 			question: PropTypes.string.isRequired,
- 			answer: PropTypes.arrayOf(
- 				PropTypes.shape(
- 					{
- 						answer: PropTypes.string.isRequired,
- 						votes: PropTypes.number.isRequired
- 					}
- 				)
- 			)
- 		}
- 	)
- ).isRequired, */
+	poll: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+		q: _propTypes2.default.string.isRequired,
+		a: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+			a: _propTypes2.default.string.isRequired,
+			votes: _propTypes2.default.number.isRequired
+		}))
+	})).isRequired,
 	user: _propTypes2.default.shape({
 		current: _propTypes2.default.object,
 		loggedIn: _propTypes2.default.bool.isRequired

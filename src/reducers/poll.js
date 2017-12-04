@@ -1,75 +1,5 @@
 import axios from "axios";
 
-// reducer
-
-export default (state = [], action) => {
-	switch(action.type){
-	case FETCH_POLLS:
-		return action.polls;
-		
-	case ADD_POLLS:
-		return [
-			...state,
-			{
-				q: action.q,
-				a: action.a
-			}
-		];
-		
-	case EDIT_POLLS:{
-		const editedPoll = state.map(
-			(poll, ind) => {
-				if(ind == action.qind){
-					return {
-						...poll,
-						a: poll.a.concat(action.a) 
-					};
-				}
-			}
-		);
-		return editedPoll;
-	}
-		
-	case DELETE_POLLS:{
-		const deletedPoll = [
-			...state.slice(0, action.ind),
-			...state.slice(action.ind + 1)
-		];
-			
-		return deletedPoll;
-	}
-		
-	case UPDATE_VOTES:{
-		const updatedVotes = state.map(
-			(poll, ind) => {
-				if(ind === action.qind){
-					return {
-						...poll,
-						a: poll.a.map(
-							(a, ind) => {
-								if(ind === action.aind){
-									return {
-										...a,
-										votes: a.votes + action.votes
-									};
-								}
-								return a;
-							}
-						)
-					};
-				}
-				return poll;
-			}
-		);
-			
-		return updatedVotes;
-	}
-		
-	default:
-		return state;
-	}
-};
-
 //Actions
 
 const FETCH_POLLS = "FETCH_POLLS";
@@ -132,7 +62,6 @@ export const fetchPolls =
 export const postPoll = 
 	(q, a) => 
 		dispatch =>  {
-			console.log("posting polls");
 			return	axios
 				.post("/api/polls/new", addPoll(q, a))
 				.then(dispatch(addPoll(q,a)))
@@ -156,5 +85,73 @@ export const postVote =
 				.then(dispatch(updateVotes(qind, aind, votes)))
 				.catch(err => console.warn(err));
 
+// reducer
 
+export default (state = [], action) => {
+	switch(action.type){
+	case FETCH_POLLS:
+		return action.polls;
+
+	case ADD_POLLS:
+		return [
+			...state,
+			{
+				q: action.q,
+				a: action.a
+			}
+		];
+	
+	case EDIT_POLLS:{
+		const editedPoll = state.map(
+			(poll, ind) => {
+				if(ind == action.qind){
+					return {
+						...poll,
+						a: poll.a.concat(action.a) 
+					};
+				}
+			}
+		);
+		return editedPoll;
+	}
+
+	case DELETE_POLLS:{
+		const deletedPoll = [
+			...state.slice(0, action.ind),
+			...state.slice(action.ind + 1)
+		];
+
+		return deletedPoll;
+	}
+
+	case UPDATE_VOTES:{
+		const updatedVotes = state.map(
+			(poll, ind) => {
+				if(ind === action.qind){
+					return {
+						...poll,
+						a: poll.a.map(
+							(a, ind) => {
+								if(ind === action.aind){
+									return {
+										...a,
+										votes: a.votes + action.votes
+									};
+								}
+								return a;
+							}
+						)
+					};
+				}
+				return poll;
+			}
+		);
+
+		return updatedVotes;
+	}
+
+	default:
+		return state;
+	}
+};
 

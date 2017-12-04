@@ -47,3 +47,17 @@ body {
 #polls {
     margin: 5em;
 }
+
+.card {
+    margin-bottom: 1em;
+    background: rgb(28, 207, 198);
+}
+
+.card:hover{
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: rgb(148, 83, 223);
+    border-color: rgb(148, 83, 223);
+}

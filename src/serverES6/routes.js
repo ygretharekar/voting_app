@@ -2,6 +2,7 @@ import express from "express";
 import passport from "passport";
 
 import passportConfig from "./config/passport";
+import Poll from "./models/poll";
 
 passportConfig(passport);
 
@@ -26,9 +27,37 @@ const loggedIn = (req, res, next) => {
 router.param(
 	"pid",
 	(req, res, next, id) => {
-
+		Poll.findById(
+			id, 
+			(err, doc) => {
+				if(err) return next(err);
+				if(!doc) {
+					err = new Error("Document is not in DB");
+					err.status(404);
+					return next(err);
+				}
+				req.poll = doc;
+				return next();
+			}
+		);
 	}
 );
+
+
+
+router.param(
+	"aid",
+	(req, res, next, id) => {
+		req.answer = req.poll.answer[id];
+		if(!req.answer){
+			const err = new Error("Document is not in DB");
+			err.status(404);
+			return next(err);
+		}
+		return next();
+	}
+);
+
 
 //
 
@@ -40,13 +69,33 @@ router.get(
 		}
 	)
 );
-
 router.get(
+	"/api/polls",
+	(request, Response) => {
+		Poll.find(
+			{},
+			(err, polls, next) => {
+				if(err) return next(err);
+				return Response.status(200).json(polls);
+			}
+		);
+	}
+);
+
+
+
+router.post(
 	"/api/polls/new",
-	(request, Response) =>
-		Response.json({
-			do: "something"
-		})
+	loggedIn,
+	(request, Response, next) => {
+		let poll = new Poll(request.body);
+		poll.save(
+			(err, doc) => {
+				if(err) return next(err);
+				return Response.json(doc);
+			}
+		);
+	}
 );
 
 

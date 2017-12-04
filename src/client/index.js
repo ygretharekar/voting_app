@@ -7,6 +7,7 @@ import Polls from "./components/Polls";
 import Header from "./components/header";
 import Sidenav from "./components/sidenav";
 import Footer from "./components/footer";
+import PollPage from "./components/pollpage";
 
 class App extends React.Component {
 	render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
 					<main>
 						<Switch>
 							<Route exact to="/polls" component={Polls} />
+							<Route exact to="/pollpage" component={PollPage} />
 						</Switch>
 					</main>
 					<Footer />

@@ -10,15 +10,28 @@ class Polls extends React.Component {
 
 	constructor(props){
 		super(props);
+		this.props.fetchPolls();
 		this.props.fetchUser();
 	}
 
 	render(){
 
-		const { poll, user } = this.props;
+		const { poll, user, postPoll } = this.props;
 
 		return(
 			<div className="d-flex flex-column justify-content-center" id="polls">
+				{
+					poll.map(
+						p => 
+							<div className="card">
+								<div className="card-block">
+									<h2>
+										{p.q}
+									</h2>
+								</div>
+							</div>
+					)
+				}
 				<div className="d-flex flex-row justify-content-center">
 					<button className="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">
 						Add Poll
@@ -32,26 +45,27 @@ class Polls extends React.Component {
 
 const mapStateToProps = state => (
 	{
-		...state
+		poll: state.poll,
+		user: state.user
 	}
 );
 
 Polls.propTypes = {
-	/* polls: PropTypes.arrayOf(
+	poll: PropTypes.arrayOf(
 		PropTypes.shape(
 			{
-				question: PropTypes.string.isRequired,
-				answer: PropTypes.arrayOf(
+				q: PropTypes.string.isRequired,
+				a: PropTypes.arrayOf(
 					PropTypes.shape(
 						{
-							answer: PropTypes.string.isRequired,
+							a: PropTypes.string.isRequired,
 							votes: PropTypes.number.isRequired
 						}
 					)
 				)
 			}
 		)
-	).isRequired, */
+	).isRequired, 
 	user: PropTypes.shape(
 		{
 			current: PropTypes.object,
