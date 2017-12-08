@@ -7,7 +7,10 @@ import Polls from "./components/Polls";
 import Header from "./components/header";
 import Sidenav from "./components/sidenav";
 import Footer from "./components/footer";
-import PollPage from "./components/pollpage";
+import Home from "./components/Home";
+import singlePoll from "./components/SinglePoll/singlePoll";
+import Chart from "./components/SinglePoll/Chart";
+
 
 class App extends React.Component {
 	render() {
@@ -21,8 +24,9 @@ class App extends React.Component {
 					<Sidenav />
 					<main>
 						<Switch>
-							<Route exact to="/polls" component={Polls} />
-							<Route exact to="/pollpage" component={PollPage} />
+							<Route exact path="/" component={Home} />
+							<Route exact path="/polls" component={Polls} />
+							<Route path="/polls/:id" component={singlePoll} />
 						</Switch>
 					</main>
 					<Footer />
@@ -41,7 +45,7 @@ const mapStateToProps = state => (
 );
 
 App.propTypes = {
-	/* polls: PropTypes.arrayOf(
+	polls: PropTypes.arrayOf(
 		PropTypes.shape(
 			{
 				question: PropTypes.string.isRequired,
@@ -55,7 +59,7 @@ App.propTypes = {
 				)
 			}
 		)
-	).isRequired, */
+	).isRequired, 
 	user: PropTypes.shape(
 		{
 			current: PropTypes.object,

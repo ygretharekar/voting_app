@@ -33,7 +33,7 @@ router.param(
 				if(err) return next(err);
 				if(!doc) {
 					err = new Error("Document is not in DB");
-					err.status(404);
+					err.status = 404;
 					return next(err);
 				}
 				req.poll = doc;
@@ -48,10 +48,10 @@ router.param(
 router.param(
 	"aid",
 	(req, res, next, id) => {
-		req.answer = req.poll.answer[id];
+		req.a = req.poll.a[id];
 		if(!req.answer){
 			const err = new Error("Document is not in DB");
-			err.status(404);
+			err.status = 404;
 			return next(err);
 		}
 		return next();
@@ -83,13 +83,46 @@ router.get(
 );
 
 
-
 router.post(
 	"/api/polls/new",
 	loggedIn,
 	(request, Response, next) => {
 		let poll = new Poll(request.body);
 		poll.save(
+			(err, doc) => {
+				if(err) return next(err);
+				return Response.status(201).json(doc);
+			}
+		);
+	}
+);
+ 
+router.get(
+	"/api/polls/:pid",
+	(request, Response) => Response.json(request.poll)
+);
+
+router.post(
+	"/api/polls/:pid/new",
+	loggedIn,
+	(request, Response, next) => {
+		request.poll.a.push(request.body);
+		request.poll.save(
+			(err, doc) => {
+				if(err) return next(err);
+				return Response.status(201).json(doc);
+
+			}
+		);
+	}
+);
+
+router.post(
+	"/api/polls/:pid/:aid/vote",
+	loggedIn,
+	(request, Response, next) => {
+		request.a.vote(
+			request.vote,
 			(err, doc) => {
 				if(err) return next(err);
 				return Response.json(doc);

@@ -20,7 +20,10 @@ class Header extends React.Component {
 						</span>
 						<div id="user" style = {{marginLeft:63 + "em"}}>
 							<span className="h5" id="username">{this.props.user.current.twitter.username}</span>
-							<button type="button" className="btn btn-dark" onClick={this.props.logout}>LogOut</button>
+							<Link to="/">
+								<button type="button" className="btn btn-dark" onClick={this.props.logout}>LogOut</button>
+							</Link>
+							
 						</div>
 					</nav>
 				</header>
@@ -31,7 +34,9 @@ class Header extends React.Component {
 			<header>
 				<nav className = "navbar navbar-dark navbar-expand flex-row">
 					<span className="navbar-brand h4">
-						Voting App
+						<Link to="/">
+							Voting App
+						</Link>
 					</span>
 					<div id="user">
 						<span className="h5" id="username">visitor</span>

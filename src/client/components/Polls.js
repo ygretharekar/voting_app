@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { updateVotes, addPoll, fetchPolls, postPoll } from "../../reducers/poll";
 import { fetchUser } from "../../reducers/user";
@@ -22,13 +23,15 @@ class Polls extends React.Component {
 			<div className="d-flex flex-column justify-content-center" id="polls">
 				{
 					poll.map(
-						p => 
-							<div className="card">
-								<div className="card-block">
-									<h2>
-										{p.q}
-									</h2>
-								</div>
+						(p, i) => 
+							<div id="qs" className="card" key={i}>
+								<Link to = {`/polls/${p._id}`}>
+									<div className="card-block">
+										<h4>
+											{p.q}
+										</h4>
+									</div>
+								</Link>
 							</div>
 					)
 				}

@@ -48,7 +48,7 @@ body {
     margin: 5em;
 }
 
-.card {
+#qs {
     margin-bottom: 1em;
     background: rgb(28, 207, 198);
 }
@@ -60,4 +60,8 @@ body {
 .btn-primary {
     background: rgb(148, 83, 223);
     border-color: rgb(148, 83, 223);
+}
+
+#singleCard {
+    margin-top: 2em;
 }

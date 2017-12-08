@@ -5,7 +5,7 @@ class PollPage extends React.Component {
 	render(){
 		<div>
 			<h1>
-                Hello world
+                Hello!
 			</h1>
 		</div>;
 	}
