@@ -5,25 +5,22 @@ import Poll from "./Poll";
 
 const SPComp = props => {
 
-	let chart = true;
-
-	const seeChart = chart => {
-		chart = !chart;
-		return chart;
-	};
-
 	const condRender = () => {
 		if(props.state.fetched){
 			return(
 				<div>
 					<Poll
 						state = {props.state}
-						seeChart = {seeChart}
-						chart = {chart}
+						url = {props.url}
+						postVote = {props.postVote}
+						postAns = {props.postAns}
+						poll = {props.poll}
+						deletePoll = {props.deletePoll}
 					/>
 				</div>
 			);
 		}
+
 		return(
 			<h1>
 				Loading....
@@ -38,7 +35,7 @@ const SPComp = props => {
 	);
 };
 
-/* SPComp.propTypes = {
+SPComp.propTypes = {
 
 	poll: PropTypes
 		.arrayOf(PropTypes.shape({
@@ -55,7 +52,7 @@ const SPComp = props => {
 	postVote: PropTypes.func.isRequired,
 	postAns: PropTypes.func.isRequired,
 	fetchUser: PropTypes.func.isRequired	
-}; */
+}; 
 
 
 

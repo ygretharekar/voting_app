@@ -48,11 +48,11 @@ App.propTypes = {
 	polls: PropTypes.arrayOf(
 		PropTypes.shape(
 			{
-				question: PropTypes.string.isRequired,
-				answer: PropTypes.arrayOf(
+				q: PropTypes.string.isRequired,
+				a: PropTypes.arrayOf(
 					PropTypes.shape(
 						{
-							answer: PropTypes.string.isRequired,
+							a: PropTypes.string.isRequired,
 							votes: PropTypes.number.isRequired
 						}
 					)

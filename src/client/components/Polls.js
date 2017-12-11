@@ -15,9 +15,18 @@ class Polls extends React.Component {
 		this.props.fetchUser();
 	}
 
+	componentDidMount() {
+		this.props.fetchPolls();
+	}
+
+	componentWillMount = () => {
+		this.props.fetchPolls();
+	}
+	
+
 	render(){
 
-		const { poll, user, postPoll } = this.props;
+		const { poll, user, postPoll, fetchPolls } = this.props;
 
 		return(
 			<div className="d-flex flex-column justify-content-center" id="polls">
@@ -39,7 +48,7 @@ class Polls extends React.Component {
 					<button className="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">
 						Add Poll
 					</button>
-					<AddPoll postPoll = {postPoll} poll = {poll} />
+					<AddPoll postPoll = {postPoll} fetchPolls={fetchPolls} poll = {poll} />
 				</div>
 			</div>
 		);

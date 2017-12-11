@@ -37,17 +37,23 @@ const NewPoll = props => {
 								<input type="text" className="form-control" id="a" onChange={ e => {answer = e.target.value; } } style={{margin: "7px 0 0 0"}} placeholder="Type your answer here..." />
 								<div className="d-flex flex-row-reverse">
 									<button 
-										type="button" className="btn btn-secondary btn-sm dropdown-toggle"
-										style={{margin: "7px 0 0 3px" }} data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false" >
+										type="button" 
+										className="btn btn-secondary btn-sm dropdown-toggle"
+										style={{margin: "7px 0 0 3px" }} 
+										data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false"
+									>
 										Edit Question
 									</button>
 									<div className="dropdown-menu">
+										<span className="dropdown-item">
+											Question
+										</span>
 										{
 											ans.map(
 												(a, i) => 
 													<span className="dropdown-item" key={ i }>
-														{i + 1}
+														Option  { " " }  {i + 1}
 													</span>
 											)
 										}
@@ -67,8 +73,6 @@ const NewPoll = props => {
 								</div>
 							</div>
 						</form>
-									
-
 					</div>
 					<div className="modal-footer">
 						<button type="button" onClick = {props.postP} className="btn btn-primary" data-dismiss="modal">Save changes</button>

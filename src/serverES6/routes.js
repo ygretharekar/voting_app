@@ -49,8 +49,8 @@ router.param(
 	"aid",
 	(req, res, next, id) => {
 		req.a = req.poll.a[id];
-		if(!req.answer){
-			const err = new Error("Document is not in DB");
+		if(!req.a){
+			const err = new Error("Answer is not in DB");
 			err.status = 404;
 			return next(err);
 		}
@@ -122,10 +122,27 @@ router.post(
 	loggedIn,
 	(request, Response, next) => {
 		request.a.vote(
-			request.vote,
+			1,
 			(err, doc) => {
 				if(err) return next(err);
 				return Response.json(doc);
+			}
+		);
+	}
+);
+
+router.delete(
+	"/api/polls/:pid",
+	loggedIn,
+	(request, Response, next) => {
+		request.poll.remove(
+			() => {
+				request.poll.save(
+					(err, doc) => {
+						if(err) return next(err);
+						return Response.json(doc);
+					}
+				);
 			}
 		);
 	}

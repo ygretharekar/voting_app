@@ -26,7 +26,7 @@ export const editPolls = (ind, a) => (
 	}
 );
 
-export const deletePoll = ind => (
+export const removePoll = ind => (
 	{
 		type: DELETE_POLLS,
 		ind
@@ -59,15 +59,15 @@ export const fetchPolls =
 				.then(res => dispatch(getPolls(res.data)))
 				.catch(err => console.warn(err));
 
+				
 export const postPoll = 
 	(q, a) => 
-		dispatch =>  {
-			return	axios
+		dispatch =>  
+			axios
 				.post("/api/polls/new", addPoll(q, a))
 				.then(dispatch(addPoll(q,a)))
 				.catch(err => console.warn(err));
 
-		};
 
 export const postAns = 
 	(url, ind, ans) =>
@@ -77,6 +77,8 @@ export const postAns =
 				.then(dispatch(editPolls(ind, ans)))
 				.catch(err => console.warn(err));
 
+
+
 export const postVote =
 	(url, aind, qind, votes) =>
 		dispatch =>
@@ -85,7 +87,20 @@ export const postVote =
 				.then(dispatch(updateVotes(qind, aind, votes)))
 				.catch(err => console.warn(err));
 
+//
+
+export const deletePoll =
+		(index, url) => 
+			dispatch =>
+				axios
+					.delete(`/api/polls/${url}`)
+					.then(dispatch(removePoll(index)))
+					.catch(err => console.warn(err));
+
+
 // reducer
+
+
 
 export default (state = [], action) => {
 	switch(action.type){

@@ -33,13 +33,22 @@ class SinglePoll extends React.Component {
 	}
 	
 	
+
+
 	render(){
 
-		const { poll, user, deletePoll, postVote, postAns } = this.props;
+		const { poll, user, deletePoll, postVote, postAns, fetchUser } = this.props;
 
 		return(
 			<SPComp 
 				state = {this.state}
+				deletePoll = {deletePoll}
+				postVote = {postVote}
+				postAns = {postAns}
+				url = {this.props.match.params.id}
+				poll = {poll}
+				user = {user}
+				fetchUser = {fetchUser}
 			/>
 
 		);
