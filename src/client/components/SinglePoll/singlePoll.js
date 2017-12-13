@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { deletePoll, postVote, postAns } from "../../../reducers/poll";
+import { deletePoll, postVote, postAns, fetchPolls } from "../../../reducers/poll";
 import { fetchUser } from "../../../reducers/user";
 import SPComp from "./SPComp";
 
@@ -31,13 +31,10 @@ class SinglePoll extends React.Component {
 			)
 			.catch(err => console.log(err));
 	}
-	
-	
-
 
 	render(){
 
-		const { poll, user, deletePoll, postVote, postAns, fetchUser } = this.props;
+		const { poll, user, deletePoll, postVote, postAns, fetchUser, fetchPolls } = this.props;
 
 		return(
 			<SPComp 
@@ -49,6 +46,7 @@ class SinglePoll extends React.Component {
 				poll = {poll}
 				user = {user}
 				fetchUser = {fetchUser}
+				fetchPolls = {fetchPolls}
 			/>
 
 		);

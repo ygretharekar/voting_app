@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const NewPoll = props => {
 	let ans = props.state.a;
 	let answer = "";
+
 	return(
 		<div className="modal" id="exampleModal" tabIndex="-1" role="dialog">
 			<div className="modal-dialog" role="document">
@@ -24,46 +25,22 @@ const NewPoll = props => {
 								<label htmlFor="answer" className="col-form-label">Answer:</label>
 								<ul className="list-group">
 									{
-										
 										ans.map(
 											(a, i) => 
 												<li className="list-group-item" key={i}>
 													{a.a}
 												</li>
-										)
-										
+										)	
 									}
 								</ul>
 								<input type="text" className="form-control" id="a" onChange={ e => {answer = e.target.value; } } style={{margin: "7px 0 0 0"}} placeholder="Type your answer here..." />
 								<div className="d-flex flex-row-reverse">
 									<button 
-										type="button" 
-										className="btn btn-secondary btn-sm dropdown-toggle"
-										style={{margin: "7px 0 0 3px" }} 
-										data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false"
-									>
-										Edit Question
-									</button>
-									<div className="dropdown-menu">
-										<span className="dropdown-item">
-											Question
-										</span>
-										{
-											ans.map(
-												(a, i) => 
-													<span className="dropdown-item" key={ i }>
-														Option  { " " }  {i + 1}
-													</span>
-											)
-										}
-									</div>
-									<button 
 										type="button" className="btn btn-warning btn-sm"
 										onClick={ 
 											() => {
 												document.getElementById("a").value = "";
-												props.addAnswer({a: answer, votes: 1 }); 
+												props.addAnswer({a: answer, votes: 1 });
 											} 
 										}
 										style={{margin: "7px 3px 0 0" }}

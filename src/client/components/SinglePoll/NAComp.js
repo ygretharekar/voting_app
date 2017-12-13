@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 
 const NAComp = props => {  
 	return(
@@ -32,37 +30,50 @@ const NAComp = props => {
 											)
 										}
 									</ul>
-									<input type="text" className="form-control" id="a" style={{margin: "7px 0 0 0"}} placeholder="Type your answer here..." />
-									<div className="d-flex flex-row-reverse">
-										<button 
-											type="button" className="btn btn-secondary btn-sm dropdown-toggle"
-											style={{margin: "7px 0 0 3px" }} data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false" >
-										Edit Question
-										</button>
-										<div className="dropdown-menu">
-											{
-												props.poll.a.map(
-													(a, i) => 
-														<a className="dropdown-item" key={ i } >
-															{i + 1}
-														</a>
-												)
-											}
+
+									<div className="d-flex flex-row-reverse" style={{margin: "7px 0 0 0"}} >
+										<div className="input-group">
+											<input 
+												type="text" 
+												className="form-control" 
+												aria-label="Text input with dropdown button"
+												onChange={e => props.onChange(e)}
+												value = {props.state.edit}
+											/>
+											<div className="input-group-btn">
+												<button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Edit option no.
+												</button>
+												<div className="dropdown-menu dropdown-menu-right">
+													{
+														props.poll.a.map(
+															(a, i) => 
+																<a
+																	key={i}
+																	className="dropdown-item"
+																	onClick={ () => props.putValue(a, i) }
+																	href="#"
+																>
+																	option {" "} {i + 1}
+																</a>
+														)
+													}
+												</div>
+											</div>
 										</div>
-										<button
-											type="button" className="btn btn-warning btn-sm"
-											style={{margin: "7px 3px 0 0" }}
-										>
-										Submit
-										</button>
 									</div>
 								</div>
-							</form>		
-
+							</form>
 						</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-primary" data-dismiss="modal">Save changes</button>
+							<button 
+								type="button"
+								className="btn btn-primary"
+								data-dismiss="modal" 
+								onClick = {props.saveAns}
+							>
+								Save changes
+							</button>
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -71,6 +82,5 @@ const NAComp = props => {
 		</div>
 	);
 };
-
 
 export default NAComp;

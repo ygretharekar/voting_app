@@ -9,13 +9,12 @@ import Sidenav from "./components/sidenav";
 import Footer from "./components/footer";
 import Home from "./components/Home";
 import singlePoll from "./components/SinglePoll/singlePoll";
-import Chart from "./components/SinglePoll/Chart";
 
 
 class App extends React.Component {
 	render() {
 
-		const { polls, user } = this.props;
+		const { user } = this.props;
 
 		return (
 			<Router>

@@ -69,6 +69,7 @@ router.get(
 		}
 	)
 );
+
 router.get(
 	"/api/polls",
 	(request, Response) => {
@@ -111,7 +112,6 @@ router.post(
 			(err, doc) => {
 				if(err) return next(err);
 				return Response.status(201).json(doc);
-
 			}
 		);
 	}

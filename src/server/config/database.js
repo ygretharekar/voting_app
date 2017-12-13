@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
-var _mongoose = require('mongoose');
+var _mongoose = require("mongoose");
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _dotenv = require('dotenv');
+var _dotenv = require("dotenv");
 
 var _dotenv2 = _interopRequireDefault(_dotenv);
 
@@ -21,17 +21,18 @@ const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PW}@${process.env
 _mongoose2.default.Promise = global.Promise;
 
 try {
-    _mongoose2.default.connect(uri);
+	_mongoose2.default.connect(uri);
 } catch (err) {
-    _mongoose2.default.createConnection(uri);
+	_mongoose2.default.createConnection(uri);
 }
 
 const db = _mongoose2.default.connection;
 
-db.once('open', () => {
-    console.log('MongoDB is connected!');
-}).on('error', err => {
-    throw err;
+db.once("open", () => {
+	console.log("MongoDB is connected!");
+}).on("error", err => {
+	console.error(`Error while connecting to ${err.message}`);
+	throw err;
 });
 
 //
@@ -40,15 +41,15 @@ exports.default = _default;
 ;
 
 var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
 
-    __REACT_HOT_LOADER__.register(uri, 'uri', 'src/serverES6/config/database.js');
+	__REACT_HOT_LOADER__.register(uri, "uri", "src/serverES6/config/database.js");
 
-    __REACT_HOT_LOADER__.register(db, 'db', 'src/serverES6/config/database.js');
+	__REACT_HOT_LOADER__.register(db, "db", "src/serverES6/config/database.js");
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'src/serverES6/config/database.js');
+	__REACT_HOT_LOADER__.register(_default, "default", "src/serverES6/config/database.js");
 }();
 
 ;

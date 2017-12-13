@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Chart from "./Chart";
 import {Link} from "react-router-dom";
 
@@ -13,6 +12,10 @@ class Poll extends React.Component {
 		this.pollInfo = this.pollInfo.bind(this);	
 	}
 	
+	componentWillMount() {
+		
+	}
+
 	pollInfo(){
 		return(
 			<div className="container">
@@ -39,12 +42,12 @@ class Poll extends React.Component {
 														)
 												}
 											>
-												vote
+												vote here
 											</span>
 										</li>
 								)
 							}
-						</ul> 
+						</ul>
 					</div>
 					<div className="card-footer text-muted d-flex justify-content-between">
 						<Link 
@@ -71,12 +74,15 @@ class Poll extends React.Component {
 						>
 							Delete Polls
 						</Link>
+						
 					</div>
 				</div>
 				<NewAnswer
-					poll = {this.props.state.poll}	
+					poll = {this.props.state.poll}
 					postAns = {this.props.postAns}
 					postVote = {this.props.postVote}
+					url = {this.props.url}
+					polls = {this.props.poll}
 				/>
 			</div>
 		);

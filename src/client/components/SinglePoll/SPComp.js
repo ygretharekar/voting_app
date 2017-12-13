@@ -16,6 +16,7 @@ const SPComp = props => {
 						postAns = {props.postAns}
 						poll = {props.poll}
 						deletePoll = {props.deletePoll}
+						fetchPolls = {props.fetchPolls}
 					/>
 				</div>
 			);

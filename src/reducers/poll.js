@@ -68,16 +68,13 @@ export const postPoll =
 				.then(dispatch(addPoll(q,a)))
 				.catch(err => console.warn(err));
 
-
 export const postAns = 
-	(url, ind, ans) =>
+	(url, index, ind, ans) =>
 		dispatch =>
 			axios
-				.post(`/api/polls/${url}/new`, {a: ans[0].ans, votes: 1})
+				.post(`/api/polls/${url}/new`, {a: ans.a, votes: 1})
 				.then(dispatch(editPolls(ind, ans)))
 				.catch(err => console.warn(err));
-
-
 
 export const postVote =
 	(url, aind, qind, votes) =>
@@ -100,8 +97,6 @@ export const deletePoll =
 
 // reducer
 
-
-
 export default (state = [], action) => {
 	switch(action.type){
 	case FETCH_POLLS:
@@ -119,17 +114,17 @@ export default (state = [], action) => {
 	case EDIT_POLLS:{
 		const editedPoll = state.map(
 			(poll, ind) => {
-				if(ind == action.qind){
+				if(ind == action.ind){
 					return {
 						...poll,
 						a: poll.a.concat(action.a) 
 					};
 				}
+				else return poll;
 			}
 		);
 		return editedPoll;
 	}
-
 	case DELETE_POLLS:{
 		const deletedPoll = [
 			...state.slice(0, action.ind),
@@ -169,4 +164,3 @@ export default (state = [], action) => {
 		return state;
 	}
 };
-

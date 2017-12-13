@@ -13,6 +13,7 @@
     "build:client": "webpack --progress",
     "build:server": "babel src/serverES6 --out-dir src/server"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ygretharekar/voting_app.git"

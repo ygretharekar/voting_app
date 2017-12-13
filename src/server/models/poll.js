@@ -10,22 +10,22 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const schema = _mongoose2.default.schema;
+const schema = _mongoose2.default.Schema;
 
 const answerSchema = new schema({
 	a: {
-		type: string,
+		type: String,
 		unique: true
 	},
 	votes: {
-		type: number,
+		type: Number,
 		default: 0
 	}
 });
 
 const pollSchema = new schema({
 	q: {
-		type: string,
+		type: String,
 		unique: true
 	},
 	a: [answerSchema]

@@ -10,14 +10,14 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const schema = _mongoose2.default.schema;
+const schema = _mongoose2.default.Schema;
 
 const userSchema = new schema({
 	twitter: {
-		id: string,
-		token: string,
-		displayName: string,
-		username: string
+		id: String,
+		token: String,
+		displayName: String,
+		username: String
 	}
 });
 

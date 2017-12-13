@@ -3,6 +3,7 @@ import NewPoll from "./newPoll";
 
 
 class AddPoll extends React.Component {
+	
 	constructor(props){
 		super(props);
 		this.state = {
@@ -10,7 +11,8 @@ class AddPoll extends React.Component {
 			a: []
 		};
 	}
-    
+	
+	
 	
 	componentWillReceiveProps(nextProps) {
 		this.setState(
@@ -53,10 +55,6 @@ class AddPoll extends React.Component {
 		);
 	}
 
-	editQuestion(){
-		console.log("Hello World!!");
-	}
-
 	postP = e => {
 		if (e) e.preventDefault();
 		this.props.postPoll(this.state.q, this.state.a);
@@ -74,7 +72,6 @@ class AddPoll extends React.Component {
 					addQuestion = {this.addQuestion.bind(this)}
 					addAnswer = {this.addAnswer.bind(this)}
 					postP = {this.postP.bind(this)}
-					editQuestion = {this.editQuestion.bind(this)}
 				/>
 			</div>
 		);
